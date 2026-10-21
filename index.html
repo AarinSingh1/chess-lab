@@ -10,7 +10,13 @@
     <main>
       <h1>Chess Lab</h1>
       <p id="status"></p>
-      <div id="board" aria-label="Chess board"></div>
+      <div class="board-wrap">
+        <div id="board" aria-label="Chess board"></div>
+        <div id="banner" role="alert" hidden>
+          <p id="banner-text"></p>
+          <button id="banner-new">Play again</button>
+        </div>
+      </div>
       <div class="controls">
         <button id="reset">New game</button>
       </div>
