@@ -131,3 +131,23 @@ export function makeMove(state, move) {
     turn: state.turn === 'w' ? 'b' : 'w',
   };
 }
+
+// Every legal move for the side to move.
+export function allLegalMoves(state) {
+  const moves = [];
+  for (let sq = 0; sq < 64; sq++) {
+    if (colorOf(state.board[sq]) === state.turn) moves.push(...legalMoves(state, sq));
+  }
+  return moves;
+}
+
+// Game result from the side to move's perspective.
+// Returns { over, result: 'checkmate' | 'stalemate' | null, winner: 'w' | 'b' | null, check }.
+export function gameStatus(state) {
+  const check = inCheck(state.board, state.turn);
+  if (allLegalMoves(state).length > 0) return { over: false, result: null, winner: null, check };
+  if (check) {
+    return { over: true, result: 'checkmate', winner: state.turn === 'w' ? 'b' : 'w', check };
+  }
+  return { over: true, result: 'stalemate', winner: null, check };
+}
